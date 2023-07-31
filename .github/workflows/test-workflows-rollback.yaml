@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: [Test monolith]
     types: [completed]
-    branches: [test-monolith-gha]
+    branches: [master]
 jobs:
   on-success:
     runs-on: x-demo
