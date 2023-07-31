@@ -15,7 +15,7 @@ jobs:
 
   monolith-np-approval:
     name: Monolith NP approval
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     needs: [monolith-dev-deploy]
     steps:
       - name: "approval"

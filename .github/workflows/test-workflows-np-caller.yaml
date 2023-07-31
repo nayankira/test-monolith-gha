@@ -7,7 +7,7 @@ run-name: Deploy NP enviroment of the monolith by @${{ github.actor }}
 jobs:
   monolith-np-approval:
     name: Monolith NP approval
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     steps:
       - name: "approval"
         run: |

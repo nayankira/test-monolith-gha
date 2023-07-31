@@ -18,14 +18,14 @@ on:
 
 jobs:
   chekcout-deployment:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     name: checkout ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     steps:
       - name: "checkout deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
         run: |
           echo "checkout deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
   app-post:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     name: Post Deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     steps:
       - name: "post deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"

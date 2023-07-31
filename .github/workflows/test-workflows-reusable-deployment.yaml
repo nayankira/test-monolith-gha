@@ -18,7 +18,7 @@ on:
 
 jobs:
   chekcout-deployment:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     environment: ${{ inputs.env }}
     name: checkout ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     steps:
@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "checkout deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
   pre-deployment:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     name: pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     environment: ${{ inputs.env }}
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
   deployment:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     name: deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     environment: ${{ inputs.env }}
     steps:
