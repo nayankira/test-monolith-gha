@@ -27,7 +27,7 @@ jobs:
 
   service-a-np-approval:
     name: Monolith NP approval
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     needs: [service-a-dev-verification]
     steps:
       - name: "approval"

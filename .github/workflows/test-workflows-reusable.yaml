@@ -24,7 +24,7 @@ jobs:
       version: "123"
     secrets: inherit
   pre-verify-barrier:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     needs: [app-a-deploy, app-b-deploy]
     steps:
       - name: "pre verify barrier"
@@ -55,7 +55,7 @@ jobs:
       version: "123"
     secrets: inherit
   post-verify-barrier:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     needs: [app-a-post, app-b-post]
     steps:
       - name: "post verify barrier"

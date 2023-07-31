@@ -7,24 +7,24 @@ on:
     branches: [master]
 jobs:
   on-success:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - run: echo 'The triggering workflow passed'
   on-failure:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - run: echo 'failed, rollback everything'
   rollback-a:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: "rollback a"
         run: |
           echo "rollback a with a reusable workflow"
   rollback-b:
-    runs-on: x-demo
+    runs-on: ubuntu-22.04
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: "rollback b"
