@@ -13,14 +13,14 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     with:
       app: "app-a"
-      env: "${{ inputs.env }}"
+      env: "app-a:${{ inputs.env }}"
       version: "123"
     secrets: inherit
   app-b-deploy:
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     with:
       app: "app-b"
-      env: "${{ inputs.env }}"
+      env: "app-b:${{ inputs.env }}"
       version: "123"
     secrets: inherit
   pre-verify-barrier:
@@ -43,7 +43,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
       app: "app-a"
-      env: "${{ inputs.env }}"
+      env: "app-a:${{ inputs.env }}"
       version: "123"
     secrets: inherit
   app-b-post:
@@ -51,7 +51,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
       app: "app-b"
-      env: "${{ inputs.env }}"
+      env: "app-b:${{ inputs.env }}"
       version: "123"
     secrets: inherit
   post-verify-barrier:
