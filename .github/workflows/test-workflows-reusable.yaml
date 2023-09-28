@@ -21,29 +21,15 @@ jobs:
     needs: get-monolith-metrcs
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     strategy:
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.get-monolith-metrcs.outputs.matrix)}}
     with:
       app: "${{ matrix.app }}"
       env: "${{ matrix.app }}:${{ inputs.env }}"
       version: "123"
     secrets: inherit
-  app-a-deploy:
-    uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
-    with:
-      app: "app-a"
-      env: "app-a:${{ inputs.env }}"
-      version: "123"
-    secrets: inherit
-  app-b-deploy:
-    uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
-    with:
-      app: "app-b"
-      env: "app-b:${{ inputs.env }}"
-      version: "123"
-    secrets: inherit
   pre-verify-barrier:
     runs-on: ubuntu-22.04
-    needs: [app-a-deploy, app-b-deploy]
+    needs: [app-deploy-metricx]
     steps:
       - name: "pre verify barrier"
         run: |
