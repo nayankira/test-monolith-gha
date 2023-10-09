@@ -24,7 +24,7 @@ jobs:
       matrix: ${{fromJson(needs.get-monolith-metrcs.outputs.matrix)}}
     with:
       app: "${{ matrix.app }}"
-      env: "${{ matrix.app }}:${{ inputs.env }}"
+      env: "${{ inputs.env }}"
       version: "123"
     secrets: inherit
   pre-verify-barrier:
@@ -47,7 +47,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
       app: "app-a"
-      env: "app-a:${{ inputs.env }}"
+      env: "${{ inputs.env }}"
       version: "123"
     secrets: inherit
   app-b-post:
@@ -55,7 +55,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
       app: "app-b"
-      env: "app-b:${{ inputs.env }}"
+      env: "${{ inputs.env }}"
       version: "123"
     secrets: inherit
   post-verify-barrier:
