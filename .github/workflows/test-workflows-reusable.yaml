@@ -44,7 +44,7 @@ jobs:
           echo "preverify=failed" >> $GITHUB_OUTPUT
   app-post-matrix:
     if: ${{ always() }}
-    needs: [pre-verify-barrier]
+    needs: [get-monolith-matrix, pre-verify-barrier]
     strategy:
       matrix: ${{fromJson(needs.get-monolith-matrix.outputs.matrix)}}
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
