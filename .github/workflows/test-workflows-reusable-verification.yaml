@@ -19,6 +19,7 @@ on:
 jobs:
   chekcout-deployment:
     runs-on: ubuntu-22.04
+    environment: ${{ inputs.env }}
     name: checkout ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     steps:
       - name: "checkout deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
@@ -26,6 +27,7 @@ jobs:
           echo "checkout deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
   app-post:
     runs-on: ubuntu-22.04
+    environment: ${{ inputs.env }}
     name: Post Deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}
     steps:
       - name: "post deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
