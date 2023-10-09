@@ -21,7 +21,7 @@ jobs:
     needs: get-monolith-matrix
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     strategy:
-      matrix: ${{fromJson(needs.get-monolith-metrcs.outputs.matrix)}}
+      matrix: ${{fromJson(needs.get-monolith-matrix.outputs.matrix)}}
     with:
       app: "${{ matrix.app }}"
       env: "${{ inputs.env }}"
