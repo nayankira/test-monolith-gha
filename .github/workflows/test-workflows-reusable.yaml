@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  get-monolith-metrcs:
+  get-monolith-matrix:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -17,8 +17,8 @@ jobs:
     - id: set-matrix
       run: echo "::set-output name=matrix::{\"include\":[{\"app\":\"app-a\"},{\"app\":\"app-b\"}]}"
 
-  app-deploy-metricx:
-    needs: get-monolith-metrcs
+  app-deploy-matrix:
+    needs: get-monolith-matrix
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     strategy:
       matrix: ${{fromJson(needs.get-monolith-metrcs.outputs.matrix)}}
@@ -29,7 +29,7 @@ jobs:
     secrets: inherit
   pre-verify-barrier:
     runs-on: ubuntu-22.04
-    needs: [app-deploy-metricx]
+    needs: [app-deploy-matrix]
     steps:
       - name: "pre verify barrier"
         run: |
