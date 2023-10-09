@@ -42,27 +42,20 @@ jobs:
         if: ${{ failure() }}
         run: |
           echo "preverify=failed" >> $GITHUB_OUTPUT
-  app-a-post:
+  app-post-matrix:
     if: ${{ always() }}
     needs: [pre-verify-barrier]
+    strategy:
+      matrix: ${{fromJson(needs.get-monolith-matrix.outputs.matrix)}}
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
-      app: "app-a"
-      env: "${{ inputs.env }}"
-      version: "123"
-    secrets: inherit
-  app-b-post:
-    if: ${{ always() }}
-    needs: [pre-verify-barrier]
-    uses: ./.github/workflows/test-workflows-reusable-verification.yaml
-    with:
-      app: "app-b"
+      app: "${{ matrix.app }}"
       env: "${{ inputs.env }}"
       version: "123"
     secrets: inherit
   post-verify-barrier:
     runs-on: ubuntu-22.04
-    needs: [app-a-post, app-b-post]
+    needs: [app-post-matrix]
     steps:
       - name: "post verify barrier"
         run: |
