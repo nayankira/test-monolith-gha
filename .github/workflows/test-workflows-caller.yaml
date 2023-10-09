@@ -13,26 +13,26 @@ jobs:
       env: "dev"
     secrets: inherit
 
-  monolith-np-approval:
-    name: Monolith NP approval
-    runs-on: ubuntu-22.04
-    needs: [monolith-dev-deploy]
-    environment: np
-    steps:
-      - name: "approval"
-        run: |
-          echo "approve np deployment for monolith"
+  # monolith-np-approval:
+  #   name: Monolith NP approval
+  #   runs-on: ubuntu-22.04
+  #   needs: [monolith-dev-deploy]
+  #   environment: np
+  #   steps:
+  #     - name: "approval"
+  #       run: |
+  #         echo "approve np deployment for monolith"
 
   monolith-np-deploy:
     name: Deploy Monoith NP
-    needs: [monolith-np-approval]
+    needs: [monolith-dev-deploy]
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "np"
     secrets: inherit
 
   monolith-sit2-deploy:
-    name: Deploy Monoith NP
+    name: Deploy Monoith SIT2
     needs: [monolith-np-deploy]
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
