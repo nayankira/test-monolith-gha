@@ -43,6 +43,7 @@ jobs:
         run: |
           echo "preverify=failed" >> $GITHUB_OUTPUT
   app-a-post:
+    if: ${{ always() }}
     needs: [pre-verify-barrier]
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
@@ -51,6 +52,7 @@ jobs:
       version: "123"
     secrets: inherit
   app-b-post:
+    if: ${{ always() }}
     needs: [pre-verify-barrier]
     uses: ./.github/workflows/test-workflows-reusable-verification.yaml
     with:
