@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "dev"
+      notthere: "notexist"
     secrets: inherit
 
   # monolith-np-approval:
