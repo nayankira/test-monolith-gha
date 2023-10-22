@@ -19,6 +19,7 @@ jobs:
 
   app-deploy-matrix:
     needs: get-monolith-matrix
+    name: Deploy ${{ matrix.app }}
     uses: ./.github/workflows/test-workflows-reusable-deployment.yaml
     strategy:
       matrix: ${{fromJson(needs.get-monolith-matrix.outputs.matrix)}}
