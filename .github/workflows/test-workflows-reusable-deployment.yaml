@@ -15,6 +15,14 @@ on:
         description: version
         required: true
         type: string
+      reusable-params:
+        description: version
+        type: string      
+      param:
+        description: version
+        required: false
+        type: string
+        default: /var/run/xdepfolder/x-deployments/gha/${{ inputs.reusable-params }}
 
 jobs:
   chekcout-deployment:
