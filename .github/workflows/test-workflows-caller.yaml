@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "dev"
+      params: "testvalue"
     secrets: inherit
 
   # monolith-np-approval:
@@ -29,6 +30,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "np"
+      params: "testvalue"
     secrets: inherit
 
   monolith-sit2-deploy:
@@ -37,4 +39,5 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "sit2"
+      params: "testvalue"
     secrets: inherit
