@@ -26,7 +26,7 @@ on:
       time:
         description: time taken
         required: false
-        type: number
+        type: string
 
 jobs:
   chekcout-deployment:
@@ -45,6 +45,10 @@ jobs:
       - name: "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
         run: |
           echo "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
+      - name: "wait"
+        shell: bash
+        run: |
+          sleep ${{ inputs.time }}
       - shell: bash
         run: |
           expr 3 + 7 > my_file.txt
