@@ -41,6 +41,83 @@ jobs:
       - name: "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
         run: |
           echo "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
+      - shell: bash
+        run: |
+          expr 3 + 7 > my_file.txt
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact-${{ inputs.app }}
+          path: my_file.txt
+          retention-days: 5
+      - name: 'Check Artifact'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Checking artifact"
+          REPO=$GITHUB_REPOSITORY
+          RUN_ID=$GITHUB_RUN_ID
+          TOKEN=$GITHUB_TOKEN
+          API_URL="https://api.github.com"
+
+          # Wait time between checks in seconds
+          SLEEP_DURATION=10
+
+          # Maximum number of attempts to check for the artifact
+          MAX_ATTEMPTS=30
+
+          # Function to check for the artifact
+          check_artifact_a() {
+            echo "Checking for artifact: check_artifact_a"
+            for ((attempt=1; attempt<=MAX_ATTEMPTS; attempt++)); do
+              # Get the list of artifacts for the current run
+              response=$(curl -s -H "Authorization: token $TOKEN" "$API_URL/repos/$REPO/actions/runs/$RUN_ID/artifacts")
+
+              # Check if the artifact is in the list
+              if echo "$response" | grep -q "\"name\": \"my-artifact-app-a\""; then
+                echo "Artifact my-artifact-app-a found."
+                return 0
+              else
+                echo "Artifact my-artifact-app-a not found, attempt $attempt/$MAX_ATTEMPTS. Retrying in $SLEEP_DURATION seconds..."
+                sleep $SLEEP_DURATION
+              fi
+            done
+
+            echo "Artifact my-artifact-app-a not found after $MAX_ATTEMPTS attempts."
+            return 1
+          }
+
+          # Function to check for the artifact b
+          check_artifact_b() {
+            echo "Checking for artifact: my-artifact-app-b"
+            for ((attempt=1; attempt<=MAX_ATTEMPTS; attempt++)); do
+              # Get the list of artifacts for the current run
+              response=$(curl -s -H "Authorization: token $TOKEN" "$API_URL/repos/$REPO/actions/runs/$RUN_ID/artifacts")
+
+              # Check if the artifact is in the list
+              if echo "$response" | grep -q "\"name\": \"my-artifact-app-b\""; then
+                echo "Artifact my-artifact-app-b found."
+                return 0
+              else
+                echo "Artifact my-artifact-app-b not found, attempt $attempt/$MAX_ATTEMPTS. Retrying in $SLEEP_DURATION seconds..."
+                sleep $SLEEP_DURATION
+              fi
+            done
+
+            echo "Artifact my-artifact-app-b not found after $MAX_ATTEMPTS attempts."
+            return 1
+          }
+
+
+          # Call the function and exit based on the result
+          if check_artifact_a && check_artifact_b; then
+            echo "Proceeding to the next steps..."
+            exit 0
+          else
+            echo "Artifact check failed. Exiting..."
+            exit 1
+          fi
+
       - name: "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
         run: |
           echo "pre deploy ${{ inputs.app }} ${{ inputs.env }} ${{ inputs.version }}"
