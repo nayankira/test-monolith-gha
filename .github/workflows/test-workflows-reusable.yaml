@@ -19,7 +19,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - id: set-matrix
-      run: echo "::set-output name=matrix::{\"include\":[{\"app\":\"app-a\"},{\"app\":\"app-b\"}]}"
+      run: echo "::set-output name=matrix::{\"include\":[{\"app\":\"app-a\",\"time\":\"1\"},{\"app\":\"app-b\"},\"time\":\"100\"]}"
 
   app-deploy-matrix:
     needs: get-monolith-matrix
@@ -31,6 +31,7 @@ jobs:
       app: "${{ matrix.app }}"
       env: "${{ inputs.env }}"
       version: "123"
+      time: "${{ matrix.time }}"
       reusable-params: "${{ inputs.params }}"
     secrets: inherit
   pre-verify-barrier:
