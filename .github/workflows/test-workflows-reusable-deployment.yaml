@@ -23,6 +23,10 @@ on:
         required: false
         type: string
         default: /var/run/xdepfolder/x-deployments/gha/${{ inputs.reusable-params }}
+      time:
+        description: time taken
+        required: false
+        type: number
 
 jobs:
   chekcout-deployment:
