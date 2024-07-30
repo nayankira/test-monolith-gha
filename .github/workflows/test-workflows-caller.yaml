@@ -12,6 +12,12 @@ on:
 run-name: Deploy all enviroments of the monolith by @${{ github.actor }}
 
 jobs:
+  output-input:
+    runs-on: ubuntu-latest
+    steps:
+    - id: output-input
+      run: echo "${{ inputs.workspace }}"
+
   monolith-dev-deploy:
     name: Deploy Monoith Dev
     uses: ./.github/workflows/test-workflows-reusable.yaml
