@@ -2,7 +2,13 @@
 name: Test monolith
 on:
   push:
-
+  workflow_dispatch:
+    inputs:
+      workspace:
+        type: string
+        description: |
+          Name of workspace to run Gatecrash for
+          
 run-name: Deploy all enviroments of the monolith by @${{ github.actor }}
 
 jobs:
@@ -11,7 +17,7 @@ jobs:
     uses: ./.github/workflows/test-workflows-reusable.yaml
     with:
       env: "dev"
-      params: "testvalue"
+      params: "${{ inputs.workspace }}"
     secrets: inherit
 
   # monolith-np-approval:
